@@ -1,0 +1,42 @@
+/** Original source fixtures and expected declaration outcomes, independent of rule code. */
+export const fixtures = {
+  title: [
+    ['<!doctype html><p>Body', 'fail'],
+    ['<title></title>', 'fail'], ['<title> \n </title>', 'fail'],
+    ['<title>Example &amp; title</title>', 'pass'],
+    ['<title>One</title><title>Two</title>', 'needs-review'],
+    ['<template><title>Inert</title></template>', 'fail'],
+    ['<svg><title>Graphic</title></svg>', 'fail'],
+  ],
+  language: [
+    ['<p>Implicit root', 'not-applicable'], ['<html><p>Body', 'fail'],
+    ['<html lang="">', 'fail'], ['<html lang=" \t ">', 'fail'],
+    ['<HTML LANG=" EN-us ">', 'pass'], ['<html lang="??">', 'pass'],
+    ['<html lang="en" LANG="fr">', 'needs-review'],
+  ],
+  image: [
+    ['<p>No images', 'not-applicable'], ['<img>', 'needs-review'],
+    ['<img alt="">', 'needs-review'], ['<img alt="   ">', 'needs-review'],
+    ['<img alt="Diagram">', 'pass'], ['<img alt="Diagram"><img>', 'needs-review'],
+    ['<img ALT="A" alt="B">', 'needs-review'],
+    ['<template><img alt="Inert declaration"></template>', 'pass'],
+    ['<noscript><img></noscript>', 'not-applicable'],
+  ],
+  label: [
+    ['<label>Implicit <input></label>', 'not-applicable'],
+    ['<label for="">Text</label>', 'fail'], ['<label for="  ">Text</label>', 'needs-review'],
+    ['<label for="missing">Text</label>', 'fail'],
+    ['<label for="x">Text</label><input id="x">', 'pass'],
+    ['<label for="x">Text</label><input id="X">', 'fail'],
+    ['<label for="x">Text</label><div id="x"></div>', 'fail'],
+    ['<label for="x">Text</label><input id="x" type="HIDDEN">', 'fail'],
+    ['<label for="x">Text</label><input id="x" type=" hidden ">', 'pass'],
+    ['<label for="x">Text</label><input id="x"><input id="x">', 'needs-review'],
+    ['<label for="x">Text</label><my-control id="x"></my-control>', 'needs-review'],
+    ['<label for=" x ">Text</label><input id="x">', 'needs-review'],
+    ['<template><label for="x">Text</label><input id="x"></template>', 'needs-review'],
+    ['<label for="x">Text</label><template><input id="x"></template>', 'fail'],
+    ['<label for="x" FOR="y">Text</label><input id="x">', 'needs-review'],
+    ['<label for="x">Text</label><input id="x"><div id="z"></div><div id="z"></div>', 'pass'],
+  ],
+} as const;

@@ -1,0 +1,31 @@
+{
+  "name": "dastresi",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Local-first static HTML accessibility declaration auditing",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25",
+    "npm": ">=11 <12"
+  },
+  "packageManager": "npm@11.11.0",
+  "bin": {
+    "dastresi": "dist/src/cli/main.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test dist/tests/*.test.js",
+    "check": "npm run typecheck && npm test",
+    "start": "node dist/src/cli/main.js"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "7.0.2"
+  },
+  "dependencies": {
+    "parse5": "8.0.1",
+    "playwright-core": "1.64.0"
+  }
+}
